@@ -5,18 +5,48 @@
     <title>OMDb API</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="container text-center">
-      <form class="row g-2 justify-content-center py-5" id="search-form">
-        <div class="col-4">
-          <input type="text" class="form-control" placeholder="Find movie" id="search-input">
+      <div data-controller="movies-search">
+        <form
+          class="row g-2 justify-content-center py-5"
+          id="search-form"
+          data-action="submit->movies-search#search"
+        >
+          <div class="col-4">
+            <input type="text" data-movies-search-target="searchInput" class="form-control" placeholder="Find movie" id="search-input">
+          </div>
+          <div class="col-1">
+            <input type="submit" class="btn btn-primary">
+          </div>
+        </form>
+        <ul id="results"
+            class="list-group list-group-horizontal"
+            data-movies-search-target="list"
+            data-controller="sortable"
+            data-sortable-target="list"
+        ></ul>
+      </div>
+
+
+      <div class="row">
+        <div class="col pt-1" data-controller="disable-button">
+          <button
+            class="btn btn-primary btn-lg"
+            data-disable-button-target="button"
+            data-action="click->disable-button#disable"
+          >
+              Click me!
+          </button>
+          <a href="#"
+             class="btn btn-secondary d-none ms-2"
+             data-disable-button-target="reset"
+             data-action="click->disable-button#reset"
+          >Reset</a>
         </div>
-        <div class="col-1">
-          <input type="submit" class="btn btn-primary">
-        </div>
-      </form>
-      <ul id="results" class="list-group list-group-horizontal"></ul>
+      </div>
     </div>
 
     <script src="main.js"></script>
